@@ -1,0 +1,111 @@
+{
+  "name": "sentry-tracking",
+  "displayName": "Sentry",
+  "description": "Watch your sentry tracking from your editor",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.78.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Sentry Tracking",
+      "properties": {
+        "sentry-tracking.url": {
+          "type": "string",
+          "default": null,
+          "description": "The URL for Sentry."
+        },
+        "sentry-tracking.token": {
+          "type": "string",
+          "default": null,
+          "description": "The token for Sentry."
+        },
+        "sentry-tracking.secret": {
+          "type": "string",
+          "default": null,
+          "description": "The secret for Sentry (optional)."
+        },
+        "sentry-tracking.organisationSlug": {
+          "type": "string",
+          "default": null,
+          "description": "The organisation slug for Sentry."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "sentryTracking.clearAll",
+        "title": "Clear All",
+        "icon": {
+          "light": "./media/clear-icon.svg",
+          "dark": "./media/clear-icon.svg"
+        }
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "sentryTracking.clearAll",
+          "when": "view == sentryTracking",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "sentryTracking.clearAll",
+          "when": "view == sentryTracking && viewItem == sentryProjectView",
+          "group": "inline"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sentryTracking",
+          "title": "Sentry Tracking",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "sentryTracking": [
+        {
+          "id": "sentryProjectView",
+          "name": "Sentry Projects View"
+        },
+        {
+          "id": "sentryIssueView",
+          "name": "Sentry Issues"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/node-fetch": "^2.6.4",
+    "@types/vscode": "^1.78.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "@vscode/test-electron": "^2.3.0",
+    "eslint": "^8.39.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "node-fetch": "^2.6.11",
+    "typescript": "^5.0.4"
+  }
+}
